@@ -1,0 +1,14 @@
+{
+  "objectType": "Group",
+  "mbox": "mailto:idmbox@example.com",
+  "member": [
+    {
+      "objectType": "Agent",
+      "name": "Member",
+      "account": {
+        "homePage": "http://www.example.com",
+        "name": "Account Name"
+      }
+    }
+  ]
+}

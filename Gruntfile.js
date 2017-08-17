@@ -9,39 +9,57 @@ module.exports = function(grunt) {
         commitFiles: ['-a']
       }
     },
+    'concat': {
+      dist: {
+        src: [
+          'lib/cryptojs_v3.1.2.js',
+          'src/Utils.js',
+          'src/xAPIWrapper.js',
+          'src/activitytypes.js',
+          'src/verbs.js',
+          'src/Agent.js',
+          'src/Verb.js',
+          'src/Object.js',
+          'src/Statement.js',
+          'src/xAPILaunch.js'
+        ],
+        dest: 'dist/xapiwrapper.min.js'
+      }
+    },
+    'babel': {
+      options: {
+        presets: ['env']
+      },
+      dist: {
+        files: {
+          'dist/xapiwrapper.min.js': 'dist/xapiwrapper.min.js'
+        }
+      }
+    },
     'uglify': {
       options: {
         banner: '/*! <%= pkg.name %> v <%= pkg.version %> | Built on <%= grunt.template.today("yyyy-mm-dd HH:MM:sso") %> */\n'
       },
       'build': {
         files: {
-          'dist/xapiwrapper.min.js': [
-            'lib/cryptojs_v3.1.2.js',
-            'src/activitytypes.js',
-            'src/verbs.js',
-            'src/xapiwrapper.js',
-            'src/xapistatement.js',
-            'src/xapi-util.js',
-            'src/xapi-launch.js'
-          ]
+          'dist/xapiwrapper.min.js': 'dist/xapiwrapper.min.js'
         }
       }
     },
     'exec': {
-      docs: './node_modules/doxstrap/bin/doxstrap.js --source "src/xapiwrapper.js:src/xapistatement.js" --title "xAPIWrapper <%= pkg.version %> Reference" --layout "bs-sidebar.html" --no-sort --output doc'
+      docs: './node_modules/doxstrap/bin/doxstrap.js --source "src/xAPIWrapper.js:src/Statement.js" --title "xAPIWrapper <%= pkg.version %> Reference" --layout "bs-sidebar.html" --no-sort --output doc'
     }
   });
 
   // Load the plugins.
   grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-exec');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify']);//,'exec']);
-
-  // Build only
-  grunt.registerTask('build', ['uglify']);
+  // Combine into single file, Transpile ES6 -> ES5, Minify file
+  grunt.registerTask('default', ['concat', 'babel', 'uglify']);
 
   // Docs only
   grunt.registerTask('docs', ['exec']);

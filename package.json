@@ -1,16 +1,45 @@
 {
   "name": "xAPIWrapper",
   "description": "An easier way to build, send, and retrieve xAPI statements",
-  "version": "1.10.1",
+  "version": "1.10.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/adlnet/xAPIWrapper.git"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
+    "babel-register": "^6.24.1",
+    "doxstrap": "~0.0.5",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
     "grunt-bump": "0.0.16",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-exec": "~0.4.6",
-    "doxstrap": "~0.0.5"
+    "mocha": "^3.4.2",
+    "should": "^11.2.1"
+  },
+  "babel": {
+    "plugins": [
+      "transform-async-to-generator"
+    ]
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "fs": "0.0.1-security",
+    "node-fetch": "^1.7.1",
+    "request": "^2.81.0",
+    "xhr2": "^0.1.4"
+  },
+  "scripts": {
+    "testasync": "mocha --no-timeouts --compilers js:babel-register test/testAsync.js",
+    "testactivity": "mocha --no-timeouts --compilers js:babel-register test/testActivity.js",
+    "testagent": "mocha --no-timeouts --compilers js:babel-register test/testAgent.js",
+    "testgroup": "mocha --no-timeouts --compilers js:babel-register test/testGroup.js",
+    "teststatementref": "mocha --no-timeouts --compilers js:babel-register test/testStatementRef.js",
+    "testsubstatement": "mocha --no-timeouts --compilers js:babel-register test/testSubStatement.js",
+    "testverb": "mocha --no-timeouts --compilers js:babel-register test/testVerb.js",
+    "testall": "npm run testasync && npm run testactivity && npm run testagent && npm run testgroup && npm run teststatementref && npm run testsubstatement && npm run testverb"
   }
 }

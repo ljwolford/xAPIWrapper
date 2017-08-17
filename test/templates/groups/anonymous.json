@@ -1,0 +1,10 @@
+{
+  "objectType": "Group",
+  "member": [
+    {
+      "objectType": "Agent",
+      "name": "Anon Member",
+      "mbox":"mailto:anonmem@example.com"
+    }
+  ]
+}
